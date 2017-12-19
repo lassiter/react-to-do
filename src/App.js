@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ToDo from './components/ToDo.js'
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,13 @@ class App extends Component {
       ],
       newTodoDescription:''
     };
+  }
+  deleteTodo(itemIndex) {
+    const todos = this.state.todos.filter((_todo, index) => itemIndex !== index);
+    console.log(todos);
+    this.setState({ todos: todos });
+    console.log(todos);
+
   }
   handleChange(e) {
     this.setState({newTodoDescription: e.target.value})
@@ -36,7 +44,7 @@ class App extends Component {
       <ul>
         {
           this.state.todos.map((todo,index) =>
-          <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+          <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } deleteTodo={() => this.deleteTodo(index) }/>
         )}
       </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
